@@ -1,0 +1,37 @@
+{
+  "name": "@luixal/datadis-node-client",
+  "version": "1.0.0",
+  "description": "Datadis NodeJs Client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luixal/datadis-node-client.git"
+  },
+  "keywords": [
+    "datadis"
+  ],
+  "author": "Luis Alberto Pérez García <luixal@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luixal/datadis-node-client/issues"
+  },
+  "homepage": "https://github.com/luixal/datadis-node-client#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "class-transformer": "^0.5.1",
+    "dayjs": "^1.11.13",
+    "qs": "^6.13.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/qs": "^6.9.15",
+    "typescript": "^5.6.2"
+  }
+}
