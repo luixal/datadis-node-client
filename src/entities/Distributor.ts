@@ -10,8 +10,8 @@ export enum Codes {
 }
 
 export class Distributor {
-  name: string;
   code: string;
+  name: string;
 
   static getByCode(code: string) {
     return Codes[parseInt(code)];
