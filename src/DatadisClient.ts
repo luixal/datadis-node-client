@@ -18,7 +18,7 @@ import { formatDateToYearAndMonthOnly } from "./utils/Utils";
  */
 export default class DatadisClient {
   /** {@link Account} created with the username and password provided in the constructor. */
-  private account: Account;
+  private _account: Account;
   private _axios: AxiosInstance;
   /** Auth token for private API calls. */
   private _token!: string;
@@ -32,14 +32,22 @@ export default class DatadisClient {
    * @param timeout timeout to use in the API calls. Defaults to 60000 as Datadis takes it time to answer...
    */
   constructor(username: string, password: string, timeout: number = 60000) {
-    // create account:
-    this.account = new Account(username, password);
+    // create _account:
+    this._account = new Account(username, password);
     // create axios:
     this._axios = axios.create({
       baseURL: BASE_URL,
       timeout,
       withCredentials: true
     });
+  }
+
+  /** Gets de Account used by this client instance
+   * 
+   * @returns the {@link Account} used by this instance
+  */
+  public get account(): Account {
+    return this._account;
   }
 
 
@@ -50,10 +58,10 @@ export default class DatadisClient {
    * 
    * @returns retuns an object with an {@link Account} and the response token.
    */
-  async login(): Promise<{ account: Account, token: string }> {
+  async login(): Promise<{ _account: Account, token: string }> {
     const data = qs.stringify({
-      'username': this.account.username,
-      'password': this.account.password 
+      'username': this._account.username,
+      'password': this._account.password 
     });
     
     const config = {
@@ -68,7 +76,7 @@ export default class DatadisClient {
       this._token = response.data;
       this._axios.defaults.headers.common.Authorization = `Bearer ${this._token}`;
       return {
-        account: this.account,
+        _account: this._account,
         token: this._token,
       }
     } catch(err: any) {
