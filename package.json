@@ -1,13 +1,14 @@
 {
   "name": "@luixal/datadis-node-client",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Datadis NodeJs Client",
   "main": "./dist/DatadisClient.js",
   "types": "./dist/types/DatadisClient.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json",
-    "docs": "npx typedoc --plugin typedoc-plugin-missing-exports --plugin typedoc-plugin-rename-defaults --entryPointStrategy expand src/"
+    "docs": "npx typedoc --plugin typedoc-plugin-missing-exports --plugin typedoc-plugin-rename-defaults --entryPointStrategy expand src/",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
