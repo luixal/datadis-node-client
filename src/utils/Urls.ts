@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://datadis.es';
 
+/** Endpoint for Datadis Private API (auth needed) */
 enum PrivateEndpoints {
   LOGIN = '/nikola-auth/tokens/login',
   GET_SUPPLIES = '/api-private/api/get-supplies',
@@ -9,6 +10,7 @@ enum PrivateEndpoints {
   GET_DISTRIBUTORS_WITH_SUPPLIES = '/api-private/api/get-distributors-with-supplies'
 }
 
+/** Datatdis Endpoints */
 export const Endpoints = {
   PrivateEndpoints
 }

@@ -4,7 +4,7 @@ import * as qs from 'qs';
 import "reflect-metadata";
 
 import Account from "./entities/Account";
-import { ConsumptionDataItem } from "./entities/ConsumptionData";
+import { ConsumptionData } from "./entities/ConsumptionData";
 import ContractDetail from "./entities/ContractDetail";
 import DistributorsWithSupplies from "./entities/DistributorsWithSupplies";
 import MaxPowerData from "./entities/MaxPowerData";
@@ -46,9 +46,9 @@ export default class DatadisClient {
   /**
    * Gets an authentication token for the private API.
    * 
-   * @throws {@link DatadisAuthError} if auth fails.
+   * @throws a {@link DatadisAuthError} if auth fails.
    * 
-   * @returns retuns an object with an {@link Account} and the response {@link token}.
+   * @returns retuns an object with an {@link Account} and the response token.
    */
   async login(): Promise<{ account: Account, token: string }> {
     const data = qs.stringify({
@@ -83,8 +83,8 @@ export default class DatadisClient {
    * @param authorizedNif the NIF of another person that has been authorized.
    * @param distributorCode the distributor code you can get with {@link DatadisClient.getDistributorsWithSupplies} (1: Viesgo, 2: E-distribución, 3: E-redes, 4: ASEME, 5: UFD, 6: EOSA, 7:CIDE, 8: IDE).
    * 
-   * @throws {@link DatadisAPIError} if API call fails.
-   * @throws {@link DatadisError} if something else fails.
+   * @throws a {@link DatadisAPIError} if API call fails.
+   * @throws a {@link DatadisError} if something else fails.
    * 
    * @returns an array of {@link Supply}.
    */
@@ -107,8 +107,8 @@ export default class DatadisClient {
    * @param supply.distributorCode a valid distributor code from a {@link Supply}. Valid values: (1: Viesgo, 2: E-distribución, 3: E-redes, 4: ASEME, 5: UFD, 6: EOSA, 7:CIDE, 8: IDE).
    * @param authorizedNif the NIF of another person that has been authorized.
    * 
-   * @throws {@link DatadisAPIError} if API call fails.
-   * @throws {@link DatadisError} if something else fails.
+   * @throws a {@link DatadisAPIError} if API call fails.
+   * @throws a {@link DatadisError} if something else fails.
    * 
    * @returns an array of {@link ContractDetail}.
    */
@@ -141,17 +141,17 @@ export default class DatadisClient {
    * @param measurementType Set to `0` to get consumption data every hour. Set to `1` to get consumption data every 15 minutes (at the moment, this last case is only available for a combination of point type 1 or 2 and distributor code  2).
    * @param authorizedNif the NIF of another person that has been authorized.
    * 
-   * @throws {@link DatadisAPIError} if API call fails.
-   * @throws {@link DatadisError} if something else fails.
+   * @throws a {@link DatadisAPIError} if API call fails.
+   * @throws a {@link DatadisError} if something else fails.
    * 
    * @returns an array of {@link ConsumptionData}.
    */
-  async getConsumptionData(supply: {cups: string, distributorCode: string, pointType: number}, startDate: Date = new Date(), endDate: Date = new Date(), measurementType: 0|1 = 0, authorizedNif?: string): Promise<ConsumptionDataItem[]> {
+  async getConsumptionData(supply: {cups: string, distributorCode: string, pointType: number}, startDate: Date = new Date(), endDate: Date = new Date(), measurementType: 0|1 = 0, authorizedNif?: string): Promise<ConsumptionData[]> {
     const {cups, distributorCode, pointType} = supply;
 
     try {
-      const {data} = await this._axios.get<ConsumptionDataItem[]>(Endpoints.PrivateEndpoints.GET_CONSUMPTION_DATA, { params: {cups, distributorCode, startDate: formatDateToYearAndMonthOnly(startDate), endDate: formatDateToYearAndMonthOnly(endDate), measurementType, pointType, authorizedNif} });
-      return plainToInstance(ConsumptionDataItem, data);
+      const {data} = await this._axios.get<ConsumptionData[]>(Endpoints.PrivateEndpoints.GET_CONSUMPTION_DATA, { params: {cups, distributorCode, startDate: formatDateToYearAndMonthOnly(startDate), endDate: formatDateToYearAndMonthOnly(endDate), measurementType, pointType, authorizedNif} });
+      return plainToInstance(ConsumptionData, data);
     } catch(err: any) {
       if (isAxiosError(err)) throw new DatadisAPIError(err.message, err.response?.status, err.response?.data);
       throw new DatadisError(err.message, err.response?.status, err.response?.data);
@@ -172,8 +172,8 @@ export default class DatadisClient {
    * @param endDate End date from the desired time range.
    * @param authorizedNif the NIF of another person that has been authorized.
    * 
-   * @throws {@link DatadisAPIError} if API call fails.
-   * @throws {@link DatadisError} if something else fails.
+   * @throws a {@link DatadisAPIError} if API call fails.
+   * @throws a {@link DatadisError} if something else fails.
    * 
    * @returns and array of {@link MaxPowerData}, one for each period defined in the supply's contract.
    */
@@ -195,8 +195,8 @@ export default class DatadisClient {
    * 
    * @param authorizedNif the NIF of another person that has been authorized.
    * 
-   * @throws {@link DatadisAPIError} if API call fails.
-   * @throws {@link DatadisError} if something else fails.
+   * @throws a {@link DatadisAPIError} if API call fails.
+   * @throws a {@link DatadisError} if something else fails.
    * 
    * @returns a {@link DistributorsWithSupplies}
    */
