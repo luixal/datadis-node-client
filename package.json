@@ -1,6 +1,6 @@
 {
   "name": "@luixal/datadis-node-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Datadis NodeJs Client",
   "main": "./dist/DatadisClient.js",
   "types": "./dist/types/DatadisClient.d.ts",
