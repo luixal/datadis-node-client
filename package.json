@@ -5,7 +5,7 @@
   "main": "./dist/DatadisClient.js",
   "types": "./dist/types/DatadisClient.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run build && nodemon dist/test/Test.js",
     "build": "tsc -p tsconfig.json",
     "docs": "npx typedoc --plugin typedoc-plugin-missing-exports --plugin typedoc-plugin-rename-defaults --entryPointStrategy expand src/",
     "publish": "npm publish --access public"
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/luixal/datadis-node-client#readme",
   "dependencies": {
     "axios": "^1.7.7",
+    "axios-retry": "^4.5.0",
     "class-transformer": "^0.5.1",
     "dayjs": "^1.11.13",
     "qs": "^6.13.0",

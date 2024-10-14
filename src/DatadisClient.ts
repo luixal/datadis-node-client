@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, isAxiosError } from "axios";
+import axiosRetry, { AxiosRetry, IAxiosRetryConfig } from "axios-retry";
 import { plainToInstance } from "class-transformer";
 import * as qs from 'qs';
 import "reflect-metadata";
@@ -17,6 +18,7 @@ import { formatDateToYearAndMonthOnly } from "./utils/Utils";
  * Datadis API Client
  */
 export default class DatadisClient {
+
   /** {@link Account} created with the username and password provided in the constructor. */
   private _account: Account;
   private _axios: AxiosInstance;
@@ -27,11 +29,12 @@ export default class DatadisClient {
   /**
    * Creates a new instance of {@link DatadisClient}.
    * 
-   * @param username NIF for the user in Datadis
-   * @param password Password for Datatis
+   * @param username NIF for the user in Datadis.
+   * @param password Password for Datatis.
    * @param timeout timeout to use in the API calls. Defaults to 60000 as Datadis takes it time to answer...
+   * @param retryConfig retry configuration for [axios-retry](https://github.com/softonic/axios-retry). Not applied by default.
    */
-  constructor(username: string, password: string, timeout: number = 60000) {
+  constructor(username: string, password: string, timeout: number = 60000, retryConfig?: IAxiosRetryConfig) {
     // create _account:
     this._account = new Account(username, password);
     // create axios:
@@ -40,6 +43,15 @@ export default class DatadisClient {
       timeout,
       withCredentials: true
     });
+    // configure axios retry:
+    if (retryConfig) axiosRetry(this._axios, retryConfig)
+  }
+
+  /**
+   * Gets and {@link AxiosRetry} object for configuration purpouses
+   */
+  public get axiosRetry() {
+    return axiosRetry;
   }
 
   /** Gets de Account used by this client instance
