@@ -34,13 +34,13 @@ export default class DatadisClient {
    * @param timeout timeout to use in the API calls. Defaults to 60000 as Datadis takes it time to answer...
    * @param retryConfig retry configuration for [axios-retry](https://github.com/softonic/axios-retry). Not applied by default.
    */
-  constructor(username: string, password: string, timeout: number = 60000, retryConfig?: IAxiosRetryConfig) {
+  constructor(username: string, password: string, timeout?: number, retryConfig?: IAxiosRetryConfig) {
     // create _account:
     this._account = new Account(username, password);
     // create axios:
     this._axios = axios.create({
       baseURL: BASE_URL,
-      timeout,
+      timeout: timeout || 60000,
       withCredentials: true
     });
     // configure axios retry:
