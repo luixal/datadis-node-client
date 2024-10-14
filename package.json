@@ -8,7 +8,7 @@
     "test": "npm run build && nodemon dist/test/Test.js",
     "build": "tsc -p tsconfig.json",
     "docs": "npx typedoc --plugin typedoc-plugin-missing-exports --plugin typedoc-plugin-rename-defaults --entryPointStrategy expand src/",
-    "publish": "npm publish --access public"
+    "publish_npm": "npm publish --access public"
   },
   "repository": {
     "type": "git",
